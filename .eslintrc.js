@@ -1,24 +1,37 @@
-{
-    extends: [
-        'airbnb/hooks',
-        'plugin:jest/recommended',
+module.exports = {
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "airbnb"
     ],
-    plugins: ['react', 'jest'],
-    env: {
-        browser: true,
-        es6: true,
-        jest: true,
-    },
-    parserOptions: {
-        ecmaVersion: 8,
-        sourceType: 'module',
-        ecmaFeatures: {
-            jsx: true,
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
         },
+        "ecmaVersion": 12,
+        "sourceType": "module",
     },
-    rules: {
+    "plugins": [
+        "react"
+    ],
+    "rules": {
         "no-console": "off",
         "import/no-extraneous-dependencies": "off",
         "import/prefer-default-export": "off",
+        "react/jsx-filename-extension": "off",
+        "react/react-in-jsx-scope": "off"
     },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "paths": ["src"]
+            }
+        }
+    }
 };

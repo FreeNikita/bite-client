@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Header = () => {
+export const Header = ({ onClick }) => {
   const classes = useStyles();
 
   return (
@@ -26,7 +26,7 @@ export const Header = () => {
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
+            <MenuIcon onClick={onClick} />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             News

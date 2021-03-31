@@ -49,8 +49,8 @@ export const PetCard = () => {
   }
 
   return (
-    <Card withoutPadding onClick={handleClick}>
-      <div className={classes.container}>
+    <Card withoutPadding>
+      <div className={classes.container} onClick={handleClick}>
         <div className={classes.card}>
           <img
             alt=""

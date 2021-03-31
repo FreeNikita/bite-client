@@ -25,7 +25,8 @@ module.exports = {
         "import/no-extraneous-dependencies": "off",
         "import/prefer-default-export": "off",
         "react/jsx-filename-extension": "off",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-props-no-spreading": "off"
     },
     "settings": {
         "import/resolver": {

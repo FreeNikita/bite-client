@@ -1,44 +1,52 @@
+import { useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { routing, HOME_PAGE } from 'configs/routing';
-import { useState } from 'react';
-import { Header } from './components/Header';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
-const useStyles = makeStyles(() => ({
-  wrapper: (isOpen) => ({
-    padding: 20,
-    width: isOpen ? 'calc(100% - 300px)' : '100%',
-  }),
-  sidebar: (isOpen) => ({
-    width: isOpen ? '300px' : 0,
-  })
+import Sidebar from 'components/Sidebar';
+import Header from 'components/Header';
+import { routing, HOME_PAGE } from './configs/routing';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
 }));
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-  const classes = useStyles(isOpen);
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
-  const open = () => setIsOpen(!isOpen);
+  const handleDrawer = () => {
+    setOpen(!open);
+  };
 
   return (
-    <div>
-      <Header onClick={open} />
-
-      <div style={{ display: 'flex' }}>
-
-        {isOpen && <div className={classes.sidebar}>SibeMenu</div>}
-
-        <div className={classes.wrapper}>
-          <Switch>
-            {routing.map(({ path, component, exact }) => (
-              <Route key={path} path={path} component={component} exact={exact} />
-            ))}
-            <Redirect to={HOME_PAGE} />
-          </Switch>
-        </div>
-
-      </div>
-
+    <div className={classes.root}>
+      <CssBaseline />
+      <Header open={open} handleDrawer={handleDrawer} />
+      <Sidebar open={open} handleDrawer={handleDrawer} />
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Switch>
+          {routing.map(({ path, component, exact }) => (
+            <Route key={path} path={path} component={component} exact={exact} />
+          ))}
+          <Redirect to={HOME_PAGE} />
+        </Switch>
+      </main>
     </div>
   );
 }

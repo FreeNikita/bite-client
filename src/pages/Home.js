@@ -1,3 +1,3 @@
-import { Line } from 'components/Line';
+import Line from 'components/Line';
 
-export const Home = () => <Line />;
+export default () => <Line />;

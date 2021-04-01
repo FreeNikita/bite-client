@@ -16,10 +16,11 @@ export const routing = [
   },
   {
     component: PetPage,
-    path: OPEN_PET_PAGE,
+    path: ADD_PET_PAGE,
+    exact: true,
   },
   {
     component: PetPage,
-    path: ADD_PET_PAGE,
+    path: OPEN_PET_PAGE,
   },
 ];

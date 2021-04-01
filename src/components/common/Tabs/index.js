@@ -1,22 +1,25 @@
 import { memo, useState } from 'react';
 import {
-  arrayOf, object, shape, string, oneOfType,
+  arrayOf, object, shape, string, oneOfType, element, func,
 } from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import AntTab from './components/AntTab';
 import AntTabs from './components/AntTabs';
-import TabPanel from './components/TabPanel';
 
 const useStyles = makeStyles((theme) => ({
   tabs: {
     backgroundColor: theme.palette.background.paper,
   },
+  content: {
+    padding: theme.spacing(2),
+  },
 }));
 
 const Tabs = memo(({ tabs = [] }) => {
-  const [tabNumber, setTabNumber] = useState(0);
   const classes = useStyles();
+  const [tabNumber, setTabNumber] = useState(0);
+  const Content = tabs[tabNumber].component();
 
   return (
     <Box boxShadow={3}>
@@ -28,9 +31,9 @@ const Tabs = memo(({ tabs = [] }) => {
         >
           {tabs.map(({ label }) => (<AntTab key={label} label={label} />))}
         </AntTabs>
-        <TabPanel>
-          {tabs[tabNumber].component}
-        </TabPanel>
+        <div className={classes.content}>
+          <Content />
+        </div>
       </div>
     </Box>
   );
@@ -39,7 +42,7 @@ const Tabs = memo(({ tabs = [] }) => {
 Tabs.propTypes = {
   tabs: arrayOf(shape({
     label: string.isRequired,
-    component: oneOfType([object]).isRequired,
+    component: oneOfType([object, element, func]).isRequired,
   })).isRequired,
 };
 

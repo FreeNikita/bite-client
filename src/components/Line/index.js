@@ -1,5 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { useEffect, useState } from 'react';
+import { getAllPet } from 'API';
+import { firebaseToArray } from 'utils/convert';
 import AddNew from './components/AddNew';
 import PetCard from './components/PetCard';
 
@@ -9,27 +12,25 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const arr = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-  { id: 9 },
-];
-
 const Line = () => {
   const classes = useStyles();
+  const [pets, setPets] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const petsFromBack = await getAllPet();
+      setPets(firebaseToArray(petsFromBack));
+    };
+
+    getData();
+  }, []);
 
   return (
     <div>
       <div className={classes.root}>
         <Grid container spacing={3}>
           <AddNew />
-          {arr.map(({ id }) => <PetCard key={id} />)}
+          {pets.map((pet) => <PetCard key={pet.id} pet={pet} />)}
         </Grid>
       </div>
     </div>

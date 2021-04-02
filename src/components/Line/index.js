@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { useEffect, useState } from 'react';
-import { getAllPet } from 'API';
+import { API } from 'API';
 import { firebaseToArray } from 'utils/convert';
 import AddNew from './components/AddNew';
 import PetCard from './components/PetCard';
@@ -18,7 +18,7 @@ const Line = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const petsFromBack = await getAllPet();
+      const petsFromBack = await API.getAllPet();
       setPets(firebaseToArray(petsFromBack));
     };
 

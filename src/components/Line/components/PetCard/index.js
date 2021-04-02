@@ -2,6 +2,7 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { PET_PAGE } from 'configs/routing';
 import logo from 'assets/default_pet.png';
+import { shape, string } from 'prop-types';
 import Card from '../Card';
 
 const useStyles = makeStyles(() => ({
@@ -39,10 +40,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const PetCard = () => {
+const PetCard = ({ pet }) => {
   const classes = useStyles();
+  const {
+    id, name,
+  } = pet;
 
-  const id = '1';
   const history = useHistory();
   function handleClick() {
     history.push(`${PET_PAGE}/${id}`);
@@ -63,21 +66,23 @@ const PetCard = () => {
           />
           <div className={classes.info}>
             <div className={classes.title}>
-              Name
+              {name}
             </div>
             <div className={classes.description}>
-              Short Discription
+              Short Description
             </div>
           </div>
-
-          {/* <div className={classes.status}> */}
-          {/*  <AccessibleIcon color="primary" /> */}
-          {/*  <AccessibleIcon color="secondary" /> */}
-          {/* </div> */}
         </div>
       </div>
     </Card>
   );
+};
+
+PetCard.propTypes = {
+  pet: shape({
+    id: string.isRequired,
+    name: string.isRequired,
+  }).isRequired,
 };
 
 export default PetCard;

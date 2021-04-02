@@ -1,3 +1,8 @@
 import PetContent from 'components/Pet';
+import { PetProvider } from 'components/Pet/context';
 
-export default () => <PetContent />;
+export default () => (
+  <PetProvider>
+    <PetContent />
+  </PetProvider>
+);

@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
+import { useHistory } from 'react-router-dom';
 import { HOME_PAGE } from '../../configs/routing';
 
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +57,7 @@ const configHeader = [
 const Sidebar = ({ open }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const history = useHistory();
 
   return (
     <Drawer
@@ -75,7 +77,7 @@ const Sidebar = ({ open }) => {
       <Divider />
       <List>
         {configHeader.map(({ title, link, icon: Icon }) => (
-          <ListItem button key={link}>
+          <ListItem button key={link} onClick={() => history.push(link)}>
             <ListItemIcon>
               <Icon />
             </ListItemIcon>

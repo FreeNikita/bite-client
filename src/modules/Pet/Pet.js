@@ -3,11 +3,11 @@ import MainInfo from './components/MainInfo';
 
 const settingTabs = [
   {
-    label: 'Tab1',
+    label: 'pet.main',
     component: <MainInfo />,
   },
   {
-    label: 'Tab2',
+    label: 'demo',
     component: <MainInfo />,
   },
 ];

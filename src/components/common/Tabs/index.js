@@ -4,6 +4,7 @@ import {
 } from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import { useTranslation } from 'react-i18next';
 import AntTab from './components/AntTab';
 import AntTabs from './components/AntTabs';
 
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Tabs = memo(({ tabs = [] }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const [tabNumber, setTabNumber] = useState(0);
 
@@ -28,7 +30,7 @@ const Tabs = memo(({ tabs = [] }) => {
           onChange={(_, value) => setTabNumber(value)}
           aria-label="ant example"
         >
-          {tabs.map(({ label }) => (<AntTab key={label} label={label} />))}
+          {tabs.map(({ label }) => (<AntTab key={label} label={t(label)} />))}
         </AntTabs>
         <div className={classes.content}>
           {tabs[tabNumber].component}

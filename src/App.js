@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => {
 
 function App() {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleDrawer = () => {
     setOpen(!open);

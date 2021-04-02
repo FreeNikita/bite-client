@@ -1,4 +1,5 @@
 import { bool } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -54,6 +55,7 @@ const configHeader = [
 
 const Sidebar = ({ open }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Drawer
@@ -77,7 +79,7 @@ const Sidebar = ({ open }) => {
             <ListItemIcon>
               <Icon />
             </ListItemIcon>
-            <ListItemText primary={title} />
+            <ListItemText primary={t(`sidebar.${title}`)} />
           </ListItem>
         ))}
       </List>

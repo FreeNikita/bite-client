@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 const Tabs = memo(({ tabs = [] }) => {
   const classes = useStyles();
   const [tabNumber, setTabNumber] = useState(0);
-  const Content = tabs[tabNumber].component();
 
   return (
     <Box boxShadow={3}>
@@ -32,7 +31,7 @@ const Tabs = memo(({ tabs = [] }) => {
           {tabs.map(({ label }) => (<AntTab key={label} label={label} />))}
         </AntTabs>
         <div className={classes.content}>
-          <Content />
+          {tabs[tabNumber].component}
         </div>
       </div>
     </Box>

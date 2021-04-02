@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { func } from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import { HOME_PAGE } from '../../configs/routing';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -18,10 +20,14 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: 36,
   },
+  title: {
+    cursor: 'pointer',
+  },
 }));
 
 const Header = memo(({ handleDrawer }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <AppBar
@@ -38,8 +44,13 @@ const Header = memo(({ handleDrawer }) => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" noWrap>
-          Mini variant drawer
+        <Typography
+          className={classes.title}
+          variant="h6"
+          noWrap
+          onClick={() => history.push(HOME_PAGE)}
+        >
+          Bite
         </Typography>
       </Toolbar>
     </AppBar>

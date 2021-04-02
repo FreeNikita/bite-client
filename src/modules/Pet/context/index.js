@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useMemo, useReducer } from 'react';
 import { element } from 'prop-types';
 import { reducers, initialState } from './reducers';
 
@@ -6,9 +6,9 @@ export const PetContext = createContext({});
 export const PetProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducers, initialState);
 
-  const actions = {
+  const actions = useMemo(() => ({
     dispatch,
-  };
+  }), [dispatch]);
 
   return (
     <PetContext.Provider value={[state, actions]}>

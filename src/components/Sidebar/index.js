@@ -7,8 +7,8 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
+import { HOME_PAGE } from '../../configs/routing';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -44,6 +44,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const configHeader = [
+  {
+    title: 'home',
+    link: HOME_PAGE,
+    icon: HomeIcon,
+  },
+];
+
 const Sidebar = ({ open }) => {
   const classes = useStyles();
 
@@ -64,22 +72,16 @@ const Sidebar = ({ open }) => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+        {configHeader.map(({ title, link, icon: Icon }) => (
+          <ListItem button key={link}>
+            <ListItemIcon>
+              <Icon />
+            </ListItemIcon>
+            <ListItemText primary={title} />
           </ListItem>
         ))}
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
     </Drawer>
   );
 };

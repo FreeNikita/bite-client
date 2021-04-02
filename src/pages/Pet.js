@@ -1,5 +1,5 @@
-import PetContent from 'components/Pet';
-import { PetProvider } from 'components/Pet/context';
+import PetContent from 'modules/Pet';
+import { PetProvider } from 'modules/Pet/context';
 
 export default () => (
   <PetProvider>

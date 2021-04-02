@@ -1,3 +1,3 @@
-import Line from 'components/Line';
+import Line from 'modules/Line';
 
 export default () => <Line />;

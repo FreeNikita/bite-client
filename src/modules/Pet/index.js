@@ -21,7 +21,7 @@ const Pet = () => {
     }
   }, [actions, id]);
 
-  if (isLoading) return <div>Loading_123</div>;
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <PetContent />

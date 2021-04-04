@@ -9,9 +9,13 @@ import { GlobalLoading } from 'components/Loading';
 
 import { firebase } from 'libs/firebase';
 import { routing, HOME_PAGE } from 'configs/routing';
+import { isDev } from 'configs/main';
 
 const useStyles = makeStyles((theme) => {
-  console.log('theme', theme);
+  if (isDev) {
+    console.log('theme', theme);
+  }
+
   return ({
     root: {
       display: 'flex',

@@ -12,6 +12,8 @@ import reportWebVitals from './reportWebVitals';
 
 import './i18n';
 
+console.log('process.env', process.env);
+
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />

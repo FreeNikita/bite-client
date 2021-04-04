@@ -2,11 +2,12 @@
 
 # dependencies
 .idea
-package-lock.json
 /node_modules
 /.pnp
 .pnp.js
 yarn.lock
+package-lock.json
+.env
 
 # testing
 /coverage

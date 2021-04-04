@@ -18,7 +18,7 @@ const Line = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const petsFromBack = await API.getAllPet();
+      const petsFromBack = await API.getAllPet() || {};
       setPets(firebaseToArray(petsFromBack));
     };
 

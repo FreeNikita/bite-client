@@ -1,9 +1,10 @@
-### BITE
+## BITE
 
-## .ENV
+
+
+#### .ENV
 
 Need to add an env setting for connecting the firebase.
-
 ```
 REACT_APP_FIREBASE_API_KEY=
 REACT_APP_AUTH_DOMAIN=

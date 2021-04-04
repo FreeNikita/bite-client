@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import Sidebar from 'components/Sidebar';
 import Header from 'components/Header';
-import { routing, HOME_PAGE } from './configs/routing';
+
+import { firebase } from 'libs/firebase';
+import { routing, HOME_PAGE } from 'configs/routing';
 
 const useStyles = makeStyles((theme) => {
   console.log('theme', theme);
@@ -31,10 +34,15 @@ const useStyles = makeStyles((theme) => {
 function App() {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
+  const [, loading] = useAuthState(firebase.auth());
 
   const handleDrawer = () => {
     setOpen(!open);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={classes.root}>

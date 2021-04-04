@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import Sidebar from 'components/Sidebar';
 import Header from 'components/Header';
+import { GlobalLoading } from 'components/Loading';
 
 import { firebase } from 'libs/firebase';
 import { routing, HOME_PAGE } from 'configs/routing';
@@ -41,12 +41,11 @@ function App() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <GlobalLoading />;
   }
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <Header open={open} handleDrawer={handleDrawer} />
       <Sidebar open={open} handleDrawer={handleDrawer} />
       <main className={classes.content}>

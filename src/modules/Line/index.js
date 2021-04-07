@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { useEffect, useState } from 'react';
-import { API } from 'API';
-import { firebaseToArray } from 'utils/convert';
+import { useState, useEffect } from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { firebase } from 'libs/firebase';
 import AddNew from './components/AddNew';
 import PetCard from './components/PetCard';
 
@@ -15,15 +15,19 @@ const useStyles = makeStyles(() => ({
 const Line = () => {
   const classes = useStyles();
   const [pets, setPets] = useState([]);
+  const [value, loading, error] = useCollectionData(
+    firebase.firestore().collection('pets'),
+    {
+      idField: 'id',
+      snapshotListenOptions: { includeMetadataChanges: true },
+    },
+  );
 
   useEffect(() => {
-    const getData = async () => {
-      const petsFromBack = await API.getAllPet() || {};
-      setPets(firebaseToArray(petsFromBack));
-    };
-
-    getData();
-  }, []);
+    if (Array.isArray(value)) {
+      setPets(value);
+    }
+  }, [value]);
 
   return (
     <div>

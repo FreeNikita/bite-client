@@ -1,5 +1,6 @@
 import FIREBASE from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 const {
   REACT_APP_FIREBASE_API_KEY,
@@ -22,8 +23,9 @@ const googleAuthProvider = new FIREBASE.auth.GoogleAuthProvider();
 
 export const firebase = {
   firebase: () => FIREBASE,
-  analytics: () => firebase.analytics(),
+  // analytics: () => firebase.analytics(),
   auth: () => FIREBASE.auth(),
+  firestore: () => FIREBASE.firestore(),
   signOut: () => FIREBASE.auth().signOut(),
   loginGoogle: () => FIREBASE.auth().signInWithPopup(googleAuthProvider),
 };

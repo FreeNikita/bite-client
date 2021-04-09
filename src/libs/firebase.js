@@ -1,6 +1,7 @@
 import FIREBASE from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/storage';
 
 const {
   REACT_APP_FIREBASE_API_KEY,
@@ -26,6 +27,7 @@ export const firebase = {
   // analytics: () => firebase.analytics(),
   auth: () => FIREBASE.auth(),
   firestore: () => FIREBASE.firestore(),
+  storage: () => FIREBASE.storage(),
   signOut: () => FIREBASE.auth().signOut(),
   loginGoogle: () => FIREBASE.auth().signInWithPopup(googleAuthProvider),
 };

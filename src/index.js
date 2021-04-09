@@ -11,6 +11,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import './i18n';
+import { UserProvider } from './contexts/user';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,7 +20,9 @@ ReactDOM.render(
       <FirebaseAuthProvider firebase={firebase.firebase()} {...config}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>
-            <App />
+            <UserProvider>
+              <App />
+            </UserProvider>
           </BrowserRouter>
         </ThemeProvider>
       </FirebaseAuthProvider>

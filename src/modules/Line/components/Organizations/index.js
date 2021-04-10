@@ -57,11 +57,8 @@ const Organizations = memo(({ id }) => {
           {value.name}
         </Typography>
         {isShowAll && (
-          <Typography
-            variant="subtitle1"
-            component="subtitle1"
-          >
-            Show all
+          <Typography>
+            Show All
           </Typography>
         )}
       </div>

@@ -9,18 +9,14 @@ const AddPet = memo(() => {
   const history = useHistory();
   const { search } = params;
 
-  const onSubmit = useEffect((data) => {
-    const submit = async () => {
-      const [, orgId] = search.split('=');
-      const res = await firebase.firestore().collection('pets').add({
-        ...data,
-        organizationId: orgId,
-      });
-      history.push(`${PET_PAGE}/${res.id}`);
-    };
-
-    submit();
-  }, [history, search]);
+  const onSubmit = async (data) => {
+    const [, orgId] = search.split('=');
+    const res = await firebase.firestore().collection('pets').add({
+      ...data,
+      organizationId: orgId,
+    });
+    history.push(`${PET_PAGE}/${res.id}`);
+  };
 
   return (
     <PetContent onSubmit={onSubmit} />

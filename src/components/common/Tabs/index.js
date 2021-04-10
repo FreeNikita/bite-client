@@ -21,7 +21,7 @@ const Tabs = memo(({ tabs = [], ...props }) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [tabNumber, setTabNumber] = useState(0);
-  const Content = tabs[tabNumber].component;
+  const content = tabs[tabNumber].component(props);
 
   return (
     <Box boxShadow={3}>
@@ -34,7 +34,7 @@ const Tabs = memo(({ tabs = [], ...props }) => {
           {tabs.map(({ label }) => (<AntTab key={label} label={t(label)} />))}
         </AntTabs>
         <div className={classes.content}>
-          <Content {...props} />
+          {content}
         </div>
       </div>
     </Box>

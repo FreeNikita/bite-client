@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
         if (organizationIds.length) {
           dispatch({ type: SET_ORGANIZATION, payload: { organizationIds } });
         } else {
-          res = await firebase.firestore().collection('organizations').add({ name: user.fullName, employees: [uid] });
+          res = await firebase.firestore().collection('organizations').add({ name: user.displayName, employees: [uid] });
           dispatch({ type: SET_ORGANIZATION, payload: { organizationIds: [res.id] } });
         }
       };

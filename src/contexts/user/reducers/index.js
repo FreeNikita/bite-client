@@ -11,11 +11,11 @@ export const initialState = {
 };
 
 const actions = {
-  [types.INIT_USER]: (state, { uid, emailVerified, fullName }) => ({
+  [types.INIT_USER]: (state, { uid, emailVerified, displayName }) => ({
     ...state,
     uid,
     emailVerified,
-    name: fullName,
+    name: displayName,
   }),
   [types.START_LOADING]: (state) => ({
     ...state,

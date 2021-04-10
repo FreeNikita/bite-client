@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { firebase } from 'libs/firebase';
 import PetContent from './PetContent';
@@ -9,14 +9,18 @@ const AddPet = memo(() => {
   const history = useHistory();
   const { search } = params;
 
-  const onSubmit = async (data) => {
-    const [, orgId] = search.split('=');
-    const res = await firebase.firestore().collection('pets').add({
-      ...data,
-      organizationId: orgId,
-    });
-    history.push(`${PET_PAGE}/${res.id}`);
-  };
+  const onSubmit = useCallback((data) => {
+    const submit = async () => {
+      const [, orgId] = search.split('=');
+      const res = await firebase.firestore().collection('pets').add({
+        ...data,
+        organizationId: orgId,
+      });
+      history.push(`${PET_PAGE}/${res.id}`);
+    };
+
+    submit();
+  }, [history, search]);
 
   return (
     <PetContent onSubmit={onSubmit} />

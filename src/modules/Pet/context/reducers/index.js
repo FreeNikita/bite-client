@@ -1,33 +1,20 @@
 import { types } from './types';
 
 export const initialState = {
-  data: {
-    name: '',
-    age: '',
-    breed: '',
-  },
-  isLoading: true,
+  organizationId: '',
+  name: '',
+  age: '',
+  breed: '',
 };
 
 const actions = {
-  [types.GET_PET_BY_ID]: (state, { data }) => ({
+  [types.GET_PET_BY_ID]: (state, payload) => ({
     ...state,
-    data: {
-      ...state.data,
-      ...data,
-    },
-    isLoading: false,
+    ...payload,
   }),
-  [types.LOADING_FINISH]: (state) => ({
+  [types.UPDATE_PET]: (state, payload) => ({
     ...state,
-    isLoading: false,
-  }),
-  [types.UPDATE_PET]: (state, { data }) => ({
-    ...state,
-    data: {
-      ...state.data,
-      ...data,
-    },
+    ...payload,
   }),
   default: (state) => ({ ...state }),
 };

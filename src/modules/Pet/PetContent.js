@@ -12,6 +12,8 @@ const settingTabs = [
   },
 ];
 
-const Pet = () => <Tabs tabs={settingTabs} />;
+const PetContent = () => (
+  <Tabs tabs={settingTabs} />
+);
 
-export default Pet;
+export default PetContent;

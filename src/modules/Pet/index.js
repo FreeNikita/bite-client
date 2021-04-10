@@ -1,31 +1,35 @@
+import { memo, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import PetContent from './Pet';
-
+import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { firebase } from 'libs/firebase';
+import { GlobalLoading } from 'components/Loading';
+import PetContent from './PetContent';
 import { PetContext } from './context';
-import { API } from '../../API';
-import { GET_PET_BY_ID, LOADING_FINISH } from './context/reducers/types';
+import { GET_PET_BY_ID } from './context/reducers/types';
 
-const Pet = () => {
+const Pet = memo(() => {
   const { id } = useParams();
   const [values, actions] = useContext(PetContext);
-  const { isLoading } = values;
+  const { organizationId } = values;
+
+  const [value, isLoading] = useDocumentData(
+    firebase.firestore().doc(`pets/${id}`),
+    {
+      idField: 'id',
+    },
+  );
 
   useEffect(() => {
-    if (id) {
-      API.getPetById(id).then((data) => {
-        actions.dispatch({ type: GET_PET_BY_ID, payload: { data } });
-      });
-    } else {
-      actions.dispatch({ type: LOADING_FINISH });
+    if (value) {
+      actions.dispatch({ type: GET_PET_BY_ID, payload: { ...value } });
     }
-  }, [actions, id]);
+  }, [actions, value]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading || !organizationId) return <GlobalLoading />;
 
   return (
     <PetContent />
   );
-};
+});
 
 export default Pet;

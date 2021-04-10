@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import { useContext } from 'react';
 
 import { UserContext } from '../../contexts/user';
+import Organizations from './components/Organizations';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -16,13 +16,8 @@ const Line = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      <div className={classes.root}>
-        <Grid container spacing={3}>
-          {/* <AddNew /> */}
-          {/* {pets.map((pet) => <PetCard key={pet.id} pet={pet} />)} */}
-        </Grid>
-      </div>
+    <div className={classes.root}>
+      {organizationIds.map((id) => <Organizations id={id} key={id} />)}
     </div>
   );
 };

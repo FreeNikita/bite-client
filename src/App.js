@@ -1,15 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 import Sidebar from 'components/Sidebar';
 import Header from 'components/Header';
 import { GlobalLoading } from 'components/Loading';
 
-import { firebase } from 'libs/firebase';
 import { routing, HOME_PAGE } from 'configs/routing';
 import { isDev } from 'configs/main';
+import { UserContext } from 'contexts/user';
 
 const useStyles = makeStyles((theme) => {
   if (isDev) {
@@ -37,14 +36,15 @@ const useStyles = makeStyles((theme) => {
 
 function App() {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
-  const [, loading] = useAuthState(firebase.auth());
+  const [open, setOpen] = useState(false);
+  const [values] = useContext(UserContext);
+  const { isLoading } = values;
 
   const handleDrawer = () => {
     setOpen(!open);
   };
 
-  if (loading) {
+  if (isLoading) {
     return <GlobalLoading />;
   }
 

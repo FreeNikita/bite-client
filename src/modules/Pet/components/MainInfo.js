@@ -1,14 +1,11 @@
-import { useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { func } from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { useForm } from 'react-hook-form';
 import { makeStyles } from '@material-ui/core/styles';
-import { useContext } from 'react';
-import { API } from 'API';
-import { PET_PAGE } from 'configs/routing';
 import { PetContext } from '../context';
-import { UPDATE_PET } from '../context/reducers/types';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -23,31 +20,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MainInfo = () => {
-  const history = useHistory();
-  const [values, actions] = useContext(PetContext);
-  const { data: pet } = values;
+const MainInfo = ({ onSubmit }) => {
   const classes = useStyles();
+  const [values] = useContext(PetContext);
+  const { organizationId } = values;
 
   const { register, handleSubmit } = useForm({
-    defaultValues: pet,
+    defaultValues: values,
   });
 
-  const submit = (data) => {
-    if (pet.id) {
-      API.updatePet({ ...data, id: pet.id }).then(() => {
-        actions.dispatch({
-          type: UPDATE_PET,
-          payload: {
-            data,
-          },
-        });
-      });
-    } else {
-      API.addPet(data).then((res) => {
-        history.push(`${PET_PAGE}/${res.name}`);
-      });
-    }
+  const submit = async (data) => {
+    onSubmit({
+      ...data,
+      ...(values.id && { id: values.id }),
+    });
   };
 
   return (
@@ -76,11 +62,17 @@ const MainInfo = () => {
           />
         </div>
         <div className={classes.wrapperButton}>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">
+            {organizationId ? 'Update' : 'Create'}
+          </Button>
         </div>
       </form>
     </Box>
   );
+};
+
+MainInfo.propTypes = {
+  onSubmit: func.isRequired,
 };
 
 export default MainInfo;

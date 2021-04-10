@@ -1,10 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import { useEffect, useState } from 'react';
-import { API } from 'API';
-import { firebaseToArray } from 'utils/convert';
-import AddNew from './components/AddNew';
-import PetCard from './components/PetCard';
+import { useContext } from 'react';
+
+import { UserContext } from '../../contexts/user';
+import Organizations from './components/Organizations';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -13,26 +11,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Line = () => {
+  const [values] = useContext(UserContext);
+  const { organizationIds } = values;
   const classes = useStyles();
-  const [pets, setPets] = useState([]);
-
-  useEffect(() => {
-    const getData = async () => {
-      const petsFromBack = await API.getAllPet() || {};
-      setPets(firebaseToArray(petsFromBack));
-    };
-
-    getData();
-  }, []);
 
   return (
-    <div>
-      <div className={classes.root}>
-        <Grid container spacing={3}>
-          <AddNew />
-          {pets.map((pet) => <PetCard key={pet.id} pet={pet} />)}
-        </Grid>
-      </div>
+    <div className={classes.root}>
+      {organizationIds.map((id) => <Organizations id={id} key={id} />)}
     </div>
   );
 };

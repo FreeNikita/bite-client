@@ -4,16 +4,16 @@ import MainInfo from './components/MainInfo';
 const settingTabs = [
   {
     label: 'pet.main',
-    component: <MainInfo />,
+    component: (props) => <MainInfo {...props} />,
   },
   {
     label: 'demo',
-    component: <MainInfo />,
+    component: (props) => <MainInfo {...props} />,
   },
 ];
 
-const PetContent = () => (
-  <Tabs tabs={settingTabs} />
+const PetContent = (props) => (
+  <Tabs tabs={settingTabs} {...props} />
 );
 
 export default PetContent;

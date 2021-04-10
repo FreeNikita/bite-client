@@ -1,8 +1,8 @@
-import PetContent from 'modules/Pet/PetContent';
+import { AddPet } from 'modules/Pet';
 import { PetProvider } from 'modules/Pet/context';
 
 export default () => (
   <PetProvider>
-    <PetContent />
+    <AddPet />
   </PetProvider>
 );

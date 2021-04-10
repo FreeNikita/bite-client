@@ -1,13 +1,11 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory, useLocation } from 'react-router-dom';
+import { func } from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { PET_PAGE } from 'configs/routing';
 import { PetContext } from '../context';
-import { firebase } from '../../../libs/firebase';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -22,32 +20,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MainInfo = () => {
-  const params = useLocation();
+const MainInfo = ({ onSubmit }) => {
   const classes = useStyles();
-  const history = useHistory();
   const [values] = useContext(PetContext);
   const { organizationId } = values;
-
-  const { search } = params;
 
   const { register, handleSubmit } = useForm({
     defaultValues: values,
   });
 
   const submit = async (data) => {
-    if (organizationId) {
-      await firebase.firestore().collection('pets').doc(values.id).update({
-        ...data,
-      });
-    } else {
-      const [, orgId] = search.split('=');
-      const res = await firebase.firestore().collection('pets').add({
-        ...data,
-        organizationId: orgId,
-      });
-      history.push(`${PET_PAGE}/${res.id}`);
-    }
+    onSubmit({
+      ...data,
+      ...(values.id && { id: values.id }),
+    });
   };
 
   return (
@@ -83,6 +69,10 @@ const MainInfo = () => {
       </form>
     </Box>
   );
+};
+
+MainInfo.propTypes = {
+  onSubmit: func.isRequired,
 };
 
 export default MainInfo;

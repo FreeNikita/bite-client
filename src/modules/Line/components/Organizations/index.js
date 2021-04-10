@@ -42,6 +42,8 @@ const Organizations = memo(({ id }) => {
 
   if (isLoading) return <Loading />;
 
+  const { name } = value || {};
+
   return (
     <Grid container spacing={3} className={classes.container}>
       <div
@@ -54,7 +56,7 @@ const Organizations = memo(({ id }) => {
           component="h5"
           className={classes.title}
         >
-          {value.name}
+          {name}
         </Typography>
         {isShowAll && (
           <Typography>

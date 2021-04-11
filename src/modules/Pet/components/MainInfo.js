@@ -40,6 +40,7 @@ const MainInfo = ({ onSubmit }) => {
   const submit = async ({ id, ...fields }) => {
     onSubmit({
       ...fields,
+      organizationId,
       imageURL,
       ...(values.id && { id: values.id }),
     });

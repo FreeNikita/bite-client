@@ -17,10 +17,6 @@ const actions = {
     ...state,
     ...payload,
   }),
-  [types.ADD_PHOTO]: (state, { imageURL }) => ({
-    ...state,
-    imageURL,
-  }),
   default: (state) => ({ ...state }),
 };
 

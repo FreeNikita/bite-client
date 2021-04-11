@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import { firebase } from 'libs/firebase';
 import { PetContext } from '../../modules/Pet/context';
-import { ADD_PHOTO } from '../../modules/Pet/context/reducers/types';
+import { UPDATE_PET } from '../../modules/Pet/context/reducers/types';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -80,7 +80,7 @@ const DropZone = memo(() => {
         () => {
           uploadTask.snapshot.ref.getDownloadURL().then((URL) => {
             setURL(URL);
-            action.dispatch({ type: ADD_PHOTO, payload: { imageURL: URL } });
+            action.dispatch({ type: UPDATE_PET, payload: { imageURL: URL } });
           });
         });
     }

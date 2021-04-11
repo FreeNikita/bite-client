@@ -42,8 +42,6 @@ const PetsLine = memo(({ id }) => {
     },
   );
 
-  console.log('value', value)
-
   if (isLoading) return <Loading />;
 
   return (

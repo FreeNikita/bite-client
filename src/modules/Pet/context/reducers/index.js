@@ -5,6 +5,7 @@ export const initialState = {
   name: '',
   age: '',
   breed: '',
+  imageURL: '',
 };
 
 const actions = {
@@ -15,6 +16,10 @@ const actions = {
   [types.UPDATE_PET]: (state, payload) => ({
     ...state,
     ...payload,
+  }),
+  [types.ADD_PHOTO]: (state, { imageURL }) => ({
+    ...state,
+    imageURL,
   }),
   default: (state) => ({ ...state }),
 };

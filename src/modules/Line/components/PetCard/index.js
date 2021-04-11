@@ -43,7 +43,7 @@ const useStyles = makeStyles(() => ({
 const PetCard = ({ pet }) => {
   const classes = useStyles();
   const {
-    id, name,
+    id, name, imageURL,
   } = pet;
 
   const history = useHistory();
@@ -61,9 +61,10 @@ const PetCard = ({ pet }) => {
         <div className={classes.card}>
           <img
             alt=""
-            src={logo}
+            src={imageURL || logo}
             className={classes.image}
           />
+
           <div className={classes.info}>
             <div className={classes.title}>
               {name}

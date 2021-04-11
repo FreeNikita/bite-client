@@ -1,6 +1,6 @@
 import FIREBASE from 'firebase/app';
-import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/auth';
 import 'firebase/storage';
 
 const {

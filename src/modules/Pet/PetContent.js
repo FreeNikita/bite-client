@@ -1,19 +1,10 @@
-import Tabs from 'components/common/Tabs';
-import MainInfo from './components/MainInfo';
+import PhotoEdit from 'components/PhotoEdit';
 
-const settingTabs = [
-  {
-    label: 'pet.main',
-    component: (props) => <MainInfo {...props} />,
-  },
-  {
-    label: 'demo',
-    component: (props) => <MainInfo {...props} />,
-  },
-];
-
-const PetContent = (props) => (
-  <Tabs tabs={settingTabs} {...props} />
-);
+const PetContent = (props) => {
+  console.log('PetContent props', props);
+  return (
+    <PhotoEdit />
+  );
+};
 
 export default PetContent;

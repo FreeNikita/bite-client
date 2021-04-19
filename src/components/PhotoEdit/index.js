@@ -5,13 +5,16 @@ import { nanoid } from 'nanoid';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import { firebase } from 'libs/firebase';
+import Button from '@material-ui/core/Button';
 import { PetContext } from '../../modules/Pet/context';
 import { UPDATE_PET } from '../../modules/Pet/context/reducers/types';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    width: '100%',
-    height: '100%',
+    width: 300,
+    height: 350,
+    overflow: 'hidden',
+    borderRadius: theme.spacing(),
   },
   dropzone: {
     width: '100%',
@@ -25,15 +28,23 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(),
   },
   wrapperImg: {
-    borderRadius: theme.spacing(),
-    overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    maxHeight: '250px',
+    height: 300,
   },
   img: {
-    maxHeight: '100%',
+    height: '100%',
+  },
+  wrapperButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+  },
+  btn: {
+    height: '100%',
+    width: '100%',
   },
   input: {
     display: 'none',
@@ -59,12 +70,6 @@ const DropZone = memo(() => {
     setFile(files[0]);
   };
 
-  const handleDropZoneChange = (e) => {
-    e.preventDefault();
-    const { files } = e.dataTransfer;
-    setFile(files[0]);
-  };
-
   useEffect(() => {
     if (file) {
       const storageRef = firebase.storage().ref();
@@ -87,7 +92,7 @@ const DropZone = memo(() => {
   }, [action, file, organizationId]);
 
   return (
-    <div className={classes.container}>
+    <Box boxShadow={3} className={classes.container}>
       <input
         type="file"
         onChange={handleChangeFile}
@@ -95,27 +100,19 @@ const DropZone = memo(() => {
         className={classes.input}
       />
 
-      {url ? (
-        <Box boxShadow={3} className={classes.wrapperImg}>
-          <img src={url} className={classes.img} alt="" />
-        </Box>
-      ) : (
-        <div
-          aria-hidden="true"
-          role="button"
-          className={classes.dropzone}
-          onDrop={handleDropZoneChange}
-          // onDragEnter={() => console.log('onDragEnter')}
-          // onDragLeave={() => console.log('onDragLeave')}
-          onDragOver={(e) => e.preventDefault()}
+      <Box className={classes.wrapperImg}>
+        <img src={url} className={classes.img} alt="" />
+      </Box>
+
+      <div className={classes.wrapperButton}>
+        <Button
+          className={classes.btn}
           onClick={openFileDialog}
         >
-          <div>
-            Drag n drop some files here, or click to select files
-          </div>
-        </div>
-      )}
-    </div>
+          Update
+        </Button>
+      </div>
+    </Box>
   );
 });
 

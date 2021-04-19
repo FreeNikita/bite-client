@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import DropZone from 'components/DropZone';
+import DropZone from 'components/PhotoEdit';
 import { PetContext } from '../context';
 
 const useStyles = makeStyles((theme) => ({

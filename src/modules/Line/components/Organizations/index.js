@@ -11,8 +11,8 @@ import PetsLine from '../PetsLine';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    // marginTop: theme.spacing(2),
+    // marginBottom: theme.spacing(2),
   },
   titleWrapper: {
     display: 'flex',
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     textDecoration: 'underline',
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
   },
   wrapperLine: {
     marginBottom: theme.spacing(2),
@@ -34,39 +34,39 @@ const useStyles = makeStyles((theme) => ({
 
 const Organizations = memo(({ id }) => {
   const classes = useStyles();
-  const [isShowAll, setIsShowAll] = useState(false);
+  // const [isShowAll, setIsShowAll] = useState(false);
 
-  const [value, isLoading] = useDocumentData(
+  const [, isLoading] = useDocumentData(
     firebase.firestore().doc(`organizations/${id}`),
   );
 
   if (isLoading) return <Loading />;
 
-  const { name } = value || {};
+  // const { name } = value || {};
 
   return (
-    <Grid container spacing={3} className={classes.container}>
+    <div container spacing={3} className={classes.container}>
       <div
         className={classes.titleWrapper}
-        onMouseEnter={() => setIsShowAll(true)}
-        onMouseLeave={() => setIsShowAll(false)}
+        // onMouseEnter={() => setIsShowAll(true)}
+        // onMouseLeave={() => setIsShowAll(false)}
       >
-        <Typography
-          variant="h5"
-          component="h5"
-          className={classes.title}
-        >
-          {name}
-        </Typography>
-        {isShowAll && (
-          <Typography>
-            Show All
-          </Typography>
-        )}
+        {/* <Typography */}
+        {/*  variant="h5" */}
+        {/*  component="h5" */}
+        {/*  className={classes.title} */}
+        {/* > */}
+        {/*  {name} */}
+        {/* </Typography> */}
+        {/* {isShowAll && ( */}
+        {/*  <Typography> */}
+        {/*    Show All */}
+        {/*  </Typography> */}
+        {/* )} */}
       </div>
       <PetsLine id={id} />
-      <Divider className={classes.divider} />
-    </Grid>
+      {/* <Divider className={classes.divider} /> */}
+    </div>
   );
 });
 

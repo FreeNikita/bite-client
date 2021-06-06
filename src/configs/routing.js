@@ -2,7 +2,6 @@ import { lazy } from 'react';
 
 const HomePage = lazy(() => import('pages/Home'));
 const PetPage = lazy(() => import('pages/Pet'));
-const CreatePet = lazy(() => import('pages/CreatePet'));
 
 export const HOME_PAGE = '/dashboard';
 export const PET_PAGE = '/pet';
@@ -16,7 +15,7 @@ export const routing = [
     exact: true,
   },
   {
-    component: CreatePet,
+    component: PetPage,
     path: ADD_PET_PAGE,
     exact: true,
   },

@@ -1,8 +1,12 @@
-import { EditPet } from 'modules/Pet';
+import { useParams } from 'react-router-dom';
+import { EditPet, AddPet } from 'modules/Pet';
 import { PetProvider } from 'modules/Pet/context';
 
-export default () => (
-  <PetProvider>
-    <EditPet />
-  </PetProvider>
-);
+export default () => {
+  const { id } = useParams();
+  return (
+    <PetProvider>
+      {id ? <EditPet /> : <AddPet />}
+    </PetProvider>
+  );
+};

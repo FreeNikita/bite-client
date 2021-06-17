@@ -1,6 +1,6 @@
 import FIREBASE from 'firebase/app';
-import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/auth';
 import 'firebase/storage';
 
 const {
@@ -23,7 +23,7 @@ if (NODE_ENV !== 'development') {
 const googleAuthProvider = new FIREBASE.auth.GoogleAuthProvider();
 
 export const firebase = {
-  firebase: () => FIREBASE,
+  firebase: FIREBASE,
   // analytics: () => firebase.analytics(),
   auth: () => FIREBASE.auth(),
   firestore: () => FIREBASE.firestore(),

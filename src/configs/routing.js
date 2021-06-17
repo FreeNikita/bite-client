@@ -1,22 +1,28 @@
 import { lazy } from 'react';
 
+const DashboardPage = lazy(() => import('pages/Dashboard'));
 const HomePage = lazy(() => import('pages/Home'));
 const PetPage = lazy(() => import('pages/Pet'));
-const CreatePet = lazy(() => import('pages/CreatePet'));
 
-export const HOME_PAGE = '/dashboard';
+export const HOME_PAGE = '/';
+export const PETS_PAGE = '/pets';
 export const PET_PAGE = '/pet';
 export const OPEN_PET_PAGE = `${PET_PAGE}/:id`;
 export const ADD_PET_PAGE = `${PET_PAGE}/create`;
 
 export const routing = [
   {
-    component: HomePage,
+    component: DashboardPage,
     path: HOME_PAGE,
     exact: true,
   },
   {
-    component: CreatePet,
+    component: HomePage,
+    path: PETS_PAGE,
+    exact: true,
+  },
+  {
+    component: PetPage,
     path: ADD_PET_PAGE,
     exact: true,
   },

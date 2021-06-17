@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => {
     root: {
       display: 'flex',
     },
+    contentWrapper: {
+      flexGrow: 1,
+    },
     toolbar: {
       display: 'flex',
       alignItems: 'center',
@@ -29,7 +32,6 @@ const useStyles = makeStyles((theme) => {
     },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3),
     },
   });
 });
@@ -52,15 +54,17 @@ function App() {
     <div className={classes.root}>
       <Header open={open} handleDrawer={handleDrawer} />
       <Sidebar open={open} handleDrawer={handleDrawer} />
-      <main className={classes.content}>
+      <div className={classes.contentWrapper}>
         <div className={classes.toolbar} />
-        <Switch>
-          {routing.map(({ path, component, exact }) => (
-            <Route key={path} path={path} component={component} exact={exact} />
-          ))}
-          <Redirect to={HOME_PAGE} />
-        </Switch>
-      </main>
+        <main className={classes.content}>
+          <Switch>
+            {routing.map(({ path, component, exact }) => (
+              <Route key={path} path={path} component={component} exact={exact} />
+            ))}
+            <Redirect to={HOME_PAGE} />
+          </Switch>
+        </main>
+      </div>
     </div>
   );
 }

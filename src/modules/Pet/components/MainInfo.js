@@ -5,13 +5,21 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import DropZone from 'components/PhotoEdit';
 import { PetContext } from '../context';
 
 const useStyles = makeStyles((theme) => ({
   form: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  fieldGroup: {
     display: 'grid',
-    maxWidth: 500,
     gridGap: theme.spacing(),
+    width: '50%',
+  },
+  imgWrapper: {
+
   },
   wrapperButton: {
     display: 'flex',
@@ -23,15 +31,17 @@ const useStyles = makeStyles((theme) => ({
 const MainInfo = ({ onSubmit }) => {
   const classes = useStyles();
   const [values] = useContext(PetContext);
-  const { organizationId } = values;
+  const { organizationId, imageURL } = values;
 
   const { register, handleSubmit } = useForm({
     defaultValues: values,
   });
 
-  const submit = async (data) => {
+  const submit = async ({ id, ...fields }) => {
     onSubmit({
-      ...data,
+      ...fields,
+      organizationId,
+      imageURL,
       ...(values.id && { id: values.id }),
     });
   };
@@ -40,32 +50,52 @@ const MainInfo = ({ onSubmit }) => {
     <Box>
       <form onSubmit={handleSubmit(submit)}>
         <div className={classes.form}>
-          <TextField
-            inputRef={register}
-            name="name"
-            id="name"
-            label="Name"
-          />
+          <div className={classes.fieldGroup}>
 
-          <TextField
-            inputRef={register}
-            name="age"
-            id="age"
-            label="Age"
-          />
+            {values.id && (
+              <TextField
+                inputRef={register}
+                name="id"
+                id="id"
+                label="id"
+                disabled
+              />
+            )}
 
-          <TextField
-            inputRef={register}
-            name="breed"
-            id="breed"
-            label="Breed"
-          />
+            <TextField
+              inputRef={register}
+              name="name"
+              id="name"
+              label="Name"
+            />
+
+            <TextField
+              inputRef={register}
+              name="age"
+              id="age"
+              label="Age"
+            />
+
+            <TextField
+              inputRef={register}
+              name="breed"
+              id="breed"
+              label="Breed"
+            />
+
+          </div>
+
+          <div className={classes.imgWrapper}>
+            <DropZone />
+          </div>
         </div>
+
         <div className={classes.wrapperButton}>
           <Button type="submit">
             {organizationId ? 'Update' : 'Create'}
           </Button>
         </div>
+
       </form>
     </Box>
   );

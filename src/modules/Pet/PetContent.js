@@ -1,19 +1,27 @@
-import Tabs from 'components/common/Tabs';
+import PhotoEdit from 'components/PhotoEdit';
+import Button from '@material-ui/core/Button';
+import Tabs from '../../components/common/Tabs';
 import MainInfo from './components/MainInfo';
 
-const settingTabs = [
-  {
-    label: 'pet.main',
-    component: (props) => <MainInfo {...props} />,
-  },
-  {
-    label: 'demo',
-    component: (props) => <MainInfo {...props} />,
-  },
-];
+const PetContent = (props) => {
+  console.log('PetContent props', props);
 
-const PetContent = (props) => (
-  <Tabs tabs={settingTabs} {...props} />
-);
+  const { onSubmit } = props;
+
+  const tabs = [
+    {
+      label: 'test',
+      component: () => (
+        <div>
+          <MainInfo onSubmit={onSubmit} />
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <Tabs tabs={tabs} />
+  );
+};
 
 export default PetContent;

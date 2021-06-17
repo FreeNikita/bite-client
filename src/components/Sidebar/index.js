@@ -9,8 +9,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
+import PetsIcon from '@material-ui/icons/Pets';
 import { useHistory } from 'react-router-dom';
-import { HOME_PAGE } from '../../configs/routing';
+import { HOME_PAGE, PETS_PAGE } from '../../configs/routing';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -52,6 +53,11 @@ const configHeader = [
     link: HOME_PAGE,
     icon: HomeIcon,
   },
+  {
+    title: 'pets',
+    link: PETS_PAGE,
+    icon: PetsIcon,
+  },
 ];
 
 const Sidebar = ({ open }) => {
@@ -77,7 +83,12 @@ const Sidebar = ({ open }) => {
       <Divider />
       <List>
         {configHeader.map(({ title, link, icon: Icon }) => (
-          <ListItem button key={link} onClick={() => history.push(link)}>
+          <ListItem
+            button
+            key={link}
+            onClick={() => history.push(link)}
+            // selected
+          >
             <ListItemIcon>
               <Icon />
             </ListItemIcon>

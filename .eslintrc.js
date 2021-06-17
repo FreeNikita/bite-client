@@ -26,7 +26,8 @@ module.exports = {
         "import/prefer-default-export": "off",
         "react/jsx-filename-extension": "off",
         "react/react-in-jsx-scope": "off",
-        "react/jsx-props-no-spreading": "off"
+        "react/jsx-props-no-spreading": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
     },
     "settings": {
         "import/resolver": {

@@ -5,6 +5,7 @@ export const initialState = {
   name: '',
   age: '',
   breed: '',
+  imageURL: '',
 };
 
 const actions = {

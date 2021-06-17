@@ -1,6 +1,7 @@
 {
   "sidebar": {
-    "home": "Dashboard"
+    "home": "Dashboard",
+    "pets": "Pets"
   },
   "pet": {
     "main": "Main Information"

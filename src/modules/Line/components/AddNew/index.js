@@ -1,9 +1,9 @@
+import { memo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { ADD_PET_PAGE } from 'configs/routing';
-import { string } from 'prop-types';
 import Card from '../Card';
 
 const useStyles = makeStyles(() => ({
@@ -12,13 +12,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const AddNew = ({ id }) => {
+const AddNew = memo(() => {
   const classes = useStyles();
   const history = useHistory();
 
-  function handleClick() {
-    history.push(`${ADD_PET_PAGE}?orgID=${id}`);
-  }
+  const handleClick = () => history.push(ADD_PET_PAGE);
 
   return (
     <Card onClick={handleClick}>
@@ -30,10 +28,6 @@ const AddNew = ({ id }) => {
       </div>
     </Card>
   );
-};
-
-AddNew.propTypes = {
-  id: string.isRequired,
-};
+});
 
 export default AddNew;

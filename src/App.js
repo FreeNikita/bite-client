@@ -1,9 +1,12 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Sidebar from 'components/Sidebar';
-import Header from 'components/Header';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import Sidebar from 'modules/Sidebar';
+import Header from 'modules/Header';
 import { GlobalLoading } from 'components/Loading';
 
 import { routing, HOME_PAGE } from 'configs/routing';
@@ -65,6 +68,17 @@ function App() {
           </Switch>
         </main>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+      />
     </div>
   );
 }

@@ -1,27 +1,27 @@
-import PhotoEdit from 'components/PhotoEdit';
-import Button from '@material-ui/core/Button';
-import Tabs from '../../components/common/Tabs';
+import { func } from 'prop-types';
+import Tabs from '../../components/Tabs';
 import MainInfo from './components/MainInfo';
+import Setting from './components/Setting';
 
-const PetContent = (props) => {
-  console.log('PetContent props', props);
-
-  const { onSubmit } = props;
-
+const PetContent = ({ onSubmit }) => {
   const tabs = [
     {
-      label: 'test',
-      component: () => (
-        <div>
-          <MainInfo onSubmit={onSubmit} />
-        </div>
-      ),
+      label: 'pet.main',
+      component: () => <MainInfo onSubmit={onSubmit} />,
+    },
+    {
+      label: 'pet.setting',
+      component: () => <Setting />,
     },
   ];
 
   return (
     <Tabs tabs={tabs} />
   );
+};
+
+PetContent.propTypes = {
+  onSubmit: func.isRequired,
 };
 
 export default PetContent;

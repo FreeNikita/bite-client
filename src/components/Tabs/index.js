@@ -3,12 +3,14 @@ import {
   arrayOf, object, shape, string, oneOfType, element, func,
 } from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import { useTranslation } from 'react-i18next';
 import AntTab from './components/AntTab';
 import AntTabs from './components/AntTabs';
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    borderBottom: theme.custom.border,
+  },
   tabs: {
     backgroundColor: theme.palette.background.paper,
   },
@@ -24,7 +26,7 @@ const Tabs = memo(({ tabs = [], ...props }) => {
   const content = tabs[tabNumber].component(props);
 
   return (
-    <Box boxShadow={3}>
+    <div className={classes.container}>
       <div className={classes.tabs}>
         <AntTabs
           value={tabNumber}
@@ -37,7 +39,7 @@ const Tabs = memo(({ tabs = [], ...props }) => {
           {content}
         </div>
       </div>
-    </Box>
+    </div>
   );
 });
 

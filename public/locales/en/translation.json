@@ -4,7 +4,8 @@
     "pets": "Pets"
   },
   "pet": {
-    "main": "Main Information"
+    "main": "Primary Info",
+    "setting": "Setting"
   },
   "demo": "test"
 }

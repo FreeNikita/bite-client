@@ -5,21 +5,25 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import DropZone from 'components/PhotoEdit';
+import DropZone from 'modules/PhotoEdit';
 import { PetContext } from '../context';
+import { UserContext } from '../../../contexts/user';
 
 const useStyles = makeStyles((theme) => ({
   form: {
     display: 'flex',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
   fieldGroup: {
     display: 'grid',
-    gridGap: theme.spacing(),
-    width: '50%',
+    flex: 1,
+    gridTemplateColumns: '1fr 1fr',
+    gridGap: theme.spacing(4),
+    padding: theme.spacing(1),
   },
   imgWrapper: {
-
+    display: 'grid',
+    grid: 1,
   },
   wrapperButton: {
     display: 'flex',
@@ -28,20 +32,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const fields = [
+  {
+    name: 'id',
+    id: 'id',
+    label: 'id',
+    disabled: true,
+  },
+  {
+    name: 'name',
+    id: 'name',
+    label: 'name',
+  },
+  {
+    name: 'status',
+    id: 'status',
+    label: 'Status',
+  },
+];
+
 const MainInfo = ({ onSubmit }) => {
   const classes = useStyles();
   const [values] = useContext(PetContext);
-  const { organizationId, imageURL } = values;
+  const [{ currentOrganization }] = useContext(UserContext);
+  const { imageURL, images, organizationId } = values;
 
   const { register, handleSubmit } = useForm({
     defaultValues: values,
   });
 
-  const submit = async ({ id, ...fields }) => {
+  const submit = async ({ id, ...data }) => {
     onSubmit({
-      ...fields,
-      organizationId,
+      ...data,
+      organizationId: currentOrganization,
       imageURL,
+      images,
       ...(values.id && { id: values.id }),
     });
   };
@@ -50,43 +75,25 @@ const MainInfo = ({ onSubmit }) => {
     <Box>
       <form onSubmit={handleSubmit(submit)}>
         <div className={classes.form}>
-          <div className={classes.fieldGroup}>
-
-            {values.id && (
-              <TextField
-                inputRef={register}
-                name="id"
-                id="id"
-                label="id"
-                disabled
-              />
-            )}
-
-            <TextField
-              inputRef={register}
-              name="name"
-              id="name"
-              label="Name"
-            />
-
-            <TextField
-              inputRef={register}
-              name="age"
-              id="age"
-              label="Age"
-            />
-
-            <TextField
-              inputRef={register}
-              name="breed"
-              id="breed"
-              label="Breed"
-            />
-
-          </div>
 
           <div className={classes.imgWrapper}>
             <DropZone />
+          </div>
+
+          <div className={classes.fieldGroup}>
+            {
+              fields.map(({
+                name, id, label, disabled,
+              }) => (
+                <TextField
+                  inputRef={register}
+                  name={name}
+                  id={id}
+                  label={label}
+                  disabled={disabled}
+                />
+              ))
+            }
           </div>
         </div>
 
@@ -95,7 +102,6 @@ const MainInfo = ({ onSubmit }) => {
             {organizationId ? 'Update' : 'Create'}
           </Button>
         </div>
-
       </form>
     </Box>
   );

@@ -3,10 +3,11 @@ import { string } from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { firebase } from 'libs/firebase';
 import { Loading } from 'components/Loading';
+import { fieldId } from 'API';
 import PetCard from '../PetCard';
 import AddNew from '../AddNew';
+import { getAllOrganizationPets } from '../../API/requests';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -36,10 +37,8 @@ const PetsLine = memo(({ id }) => {
   const classes = useStyles();
 
   const [value, isLoading] = useCollectionData(
-    firebase.firestore().collection('pets').where('organizationId', '==', id),
-    {
-      idField: 'id',
-    },
+    getAllOrganizationPets(id),
+    fieldId,
   );
 
   if (isLoading) return <Loading />;

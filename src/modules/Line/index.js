@@ -1,23 +1,29 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { useContext } from 'react';
 
-import { UserContext } from '../../contexts/user';
-import Organizations from './components/Organizations';
+import { UserContext } from 'contexts/user';
+import PetsLine from './components/PetsLine';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+  },
+  titleWrapper: {
+    display: 'flex',
+    alignItems: 'baseline',
+    cursor: 'pointer',
+    marginBottom: theme.spacing(1),
   },
 }));
 
 const Line = () => {
-  const [values] = useContext(UserContext);
-  const { organizationIds } = values;
+  const [{ currentOrganization }] = useContext(UserContext);
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {organizationIds.map((id) => <Organizations id={id} key={id} />)}
+      <div className={classes.titleWrapper} />
+      <PetsLine id={currentOrganization} />
     </div>
   );
 };

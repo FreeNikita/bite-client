@@ -3,18 +3,14 @@ import {
 } from 'react';
 import { nanoid } from 'nanoid';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import { firebase } from 'libs/firebase';
-import Button from '@material-ui/core/Button';
-import { PetContext } from '../../modules/Pet/context';
-import { UPDATE_PET } from '../../modules/Pet/context/reducers/types';
+import { PetContext } from '../Pet/context';
+import { UPDATE_PET } from '../Pet/context/types';
+import { UserContext } from '../../contexts/user';
 
 const useStyles = makeStyles((theme) => ({
   container: {
     width: 300,
-    height: 350,
-    overflow: 'hidden',
-    borderRadius: theme.spacing(),
   },
   dropzone: {
     width: '100%',
@@ -28,13 +24,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(),
   },
   wrapperImg: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     height: 300,
+    display: 'flex',
+    borderRadius: theme.spacing(2),
+    overflow: 'hidden',
+    cursor: 'pointer',
   },
   img: {
-    height: '100%',
+    width: '100%',
   },
   wrapperButton: {
     display: 'flex',
@@ -55,6 +52,7 @@ const DropZone = memo(() => {
   const classes = useStyles();
   const dropZone = useRef(null);
   const [values, action] = useContext(PetContext);
+  const [{ currentOrganization }] = useContext(UserContext);
   const { organizationId, imageURL } = values;
 
   const [file, setFile] = useState(null);
@@ -73,10 +71,11 @@ const DropZone = memo(() => {
   useEffect(() => {
     if (file) {
       const storageRef = firebase.storage().ref();
-      const type = file.name.split('.')[1];
+      const type = file.name.split('.').pop();
+      const fileName = `${nanoid()}.${type}`;
 
       const uploadTask = storageRef
-        .child(`/${organizationId}/${nanoid()}.${type}`)
+        .child(`/${currentOrganization}/${fileName}`)
         .put(file);
 
       uploadTask.on('state_changed',
@@ -85,14 +84,20 @@ const DropZone = memo(() => {
         () => {
           uploadTask.snapshot.ref.getDownloadURL().then((URL) => {
             setURL(URL);
-            action.dispatch({ type: UPDATE_PET, payload: { imageURL: URL } });
+            action.dispatch({
+              type: UPDATE_PET,
+              payload: {
+                imageURL: URL,
+                fileName,
+              },
+            });
           });
         });
     }
-  }, [action, file, organizationId]);
+  }, [action, currentOrganization, file, organizationId]);
 
   return (
-    <Box boxShadow={3} className={classes.container}>
+    <div className={classes.container}>
       <input
         type="file"
         onChange={handleChangeFile}
@@ -100,19 +105,18 @@ const DropZone = memo(() => {
         className={classes.input}
       />
 
-      <Box className={classes.wrapperImg}>
-        <img src={url} className={classes.img} alt="" />
-      </Box>
-
-      <div className={classes.wrapperButton}>
-        <Button
-          className={classes.btn}
-          onClick={openFileDialog}
-        >
-          Update
-        </Button>
+      <div
+        className={classes.wrapperImg}
+        onClick={openFileDialog}
+        role="button"
+      >
+        <img
+          src={url}
+          className={classes.img}
+          alt=""
+        />
       </div>
-    </Box>
+    </div>
   );
 });
 

@@ -1,13 +1,13 @@
-import { func } from 'prop-types';
+import { memo } from 'react';
 import Tabs from '../../components/Tabs';
 import MainInfo from './components/MainInfo';
 import Setting from './components/Setting';
 
-const PetContent = ({ onSubmit }) => {
+const PetContent = memo(() => {
   const tabs = [
     {
       label: 'pet.main',
-      component: () => <MainInfo onSubmit={onSubmit} />,
+      component: () => <MainInfo />,
     },
     {
       label: 'pet.setting',
@@ -18,10 +18,6 @@ const PetContent = ({ onSubmit }) => {
   return (
     <Tabs tabs={tabs} />
   );
-};
-
-PetContent.propTypes = {
-  onSubmit: func.isRequired,
-};
+});
 
 export default PetContent;

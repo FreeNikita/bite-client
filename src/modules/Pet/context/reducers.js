@@ -20,8 +20,12 @@ const actions = {
     ...(imageURL && { imageURL }),
     ...(fileName && { images: state.images.concat(fileName) }),
   }),
+  [TYPES.ADD_PHOTO]: (state, { imageURL }) => ({
+    ...state,
+    ...(imageURL && { imageURL }),
+    ...(imageURL && { images: state.images.concat(imageURL) }),
+  }),
   // TODO Need to add actions
-  [TYPES.ADD_PHOTO]: (state) => state,
   [TYPES.UPDATE_MAIN_PHOTO]: (state) => state,
   default: (state) => state,
 };

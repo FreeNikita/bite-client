@@ -1,123 +1,73 @@
-import {
-  useContext, useEffect, useState, useRef, memo,
-} from 'react';
-import { nanoid } from 'nanoid';
+import { useRef, memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { firebase } from 'libs/firebase';
-import { PetContext } from '../Pet/context';
-import { UPDATE_PET } from '../Pet/context/types';
-import { UserContext } from '../../contexts/user';
+import { func, string } from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   container: {
     width: 300,
   },
-  dropzone: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: theme.spacing(),
-    border: '2px dashed #3f51b5',
-    padding: theme.spacing(),
-  },
   wrapperImg: {
     height: 300,
     display: 'flex',
-    borderRadius: theme.spacing(2),
+    justifyContent: 'center',
+    alignItems: 'center',
     overflow: 'hidden',
     cursor: 'pointer',
   },
+  border: {
+    borderRadius: theme.spacing(2),
+    borderColor: theme.palette.grey[400],
+    borderWidth: 2,
+    borderStyle: 'solid',
+  },
   img: {
     width: '100%',
-  },
-  wrapperButton: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-  },
-  btn: {
-    height: '100%',
-    width: '100%',
+    borderRadius: theme.spacing(2),
   },
   input: {
     display: 'none',
   },
 }));
 
-const DropZone = memo(() => {
+const ImageContainer = memo(({ url, upload }) => {
   const classes = useStyles();
   const dropZone = useRef(null);
-  const [values, action] = useContext(PetContext);
-  const [{ currentOrganization }] = useContext(UserContext);
-  const { organizationId, imageURL } = values;
-
-  const [file, setFile] = useState(null);
-  const [url, setURL] = useState(imageURL);
 
   const openFileDialog = (e) => {
     e.preventDefault();
     dropZone.current.click();
   };
 
-  const handleChangeFile = (e) => {
-    const { files } = e.target;
-    setFile(files[0]);
-  };
-
-  useEffect(() => {
-    if (file) {
-      const storageRef = firebase.storage().ref();
-      const type = file.name.split('.').pop();
-      const fileName = `${nanoid()}.${type}`;
-
-      const uploadTask = storageRef
-        .child(`/${currentOrganization}/${fileName}`)
-        .put(file);
-
-      uploadTask.on('state_changed',
-        () => {},
-        () => {},
-        () => {
-          uploadTask.snapshot.ref.getDownloadURL().then((URL) => {
-            setURL(URL);
-            action.dispatch({
-              type: UPDATE_PET,
-              payload: {
-                imageURL: URL,
-                fileName,
-              },
-            });
-          });
-        });
-    }
-  }, [action, currentOrganization, file, organizationId]);
+  const handleChangeFile = ({ target: { files } }) => upload(files[0]);
 
   return (
     <div className={classes.container}>
       <input
-        type="file"
+        className={classes.input}
         onChange={handleChangeFile}
         ref={dropZone}
-        className={classes.input}
+        type="file"
+        accept=".jpg, .jpeg, .png"
       />
-
       <div
-        className={classes.wrapperImg}
+        className={`${classes.wrapperImg}  ${!url && classes.border}`}
         onClick={openFileDialog}
         role="button"
+        tabIndex={0}
       >
-        <img
-          src={url}
-          className={classes.img}
-          alt=""
-        />
+        { url ? (
+          <img className={classes.img} src={url} alt="" />
+        ) : (
+          <div>Click to add photo</div>
+        )}
       </div>
     </div>
   );
 });
 
-export default DropZone;
+ImageContainer.propTypes = {
+  url: string.isRequired,
+  upload: func.isRequired,
+};
+
+export default ImageContainer;

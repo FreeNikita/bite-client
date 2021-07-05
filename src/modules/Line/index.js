@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'baseline',
     cursor: 'pointer',
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
 }));
 

@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
   },
   image: {
     width: '250px',
-    height: '100%',
+    height: '200px',
     objectFit: 'cover',
   },
   info: {

@@ -4,21 +4,12 @@ import Grid from '@material-ui/core/Grid';
 import { bool, element, func } from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
     height: 300,
-    width: 250,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-
+    width: '100%',
     '&:active': {
       transform: 'scale(0.98)',
     },
@@ -44,11 +35,9 @@ const Card = ({ children, withoutPadding, onClick }) => {
       xl={2}
       onClick={onClick}
     >
-      <div className={classes.container}>
-        <Paper className={cardStyle} elevation={3}>
-          {children}
-        </Paper>
-      </div>
+      <Paper className={cardStyle} elevation={3}>
+        {children}
+      </Paper>
     </Grid>
   );
 };
@@ -61,7 +50,6 @@ Card.propTypes = {
 
 Card.defaultProps = {
   withoutPadding: false,
-  onClick: () => {},
 };
 
 export default Card;

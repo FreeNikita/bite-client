@@ -112,6 +112,7 @@ const MainInfo = () => {
               />
             ))}
           </div>
+
         </div>
         <div className={classes.wrapperButton}>
           <Button type="submit">

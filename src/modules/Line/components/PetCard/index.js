@@ -11,13 +11,11 @@ const useStyles = makeStyles(() => ({
     width: '100%',
   },
   card: {
-    display: 'grid',
-    justifyContent: 'space-around',
-    gridTemplateRows: '12fr 3fr 2fr 4fr',
-    height: '100%',
+    height: '200px',
+    width: '100%',
   },
   image: {
-    width: '250px',
+    width: '100%',
     height: '200px',
     objectFit: 'cover',
   },

@@ -7,12 +7,7 @@ import PetsLine from './components/PetsLine';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-  },
-  titleWrapper: {
-    display: 'flex',
-    alignItems: 'baseline',
-    cursor: 'pointer',
-    marginBottom: theme.spacing(2),
+    padding: theme.spacing(2),
   },
 }));
 
@@ -22,7 +17,6 @@ const Line = () => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.titleWrapper} />
       <PetsLine id={currentOrganization} />
     </div>
   );

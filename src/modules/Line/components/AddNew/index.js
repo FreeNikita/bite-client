@@ -7,6 +7,13 @@ import { ADD_PET_PAGE } from 'configs/routing';
 import Card from '../Card';
 
 const useStyles = makeStyles(() => ({
+  container: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   iconNew: {
     fontSize: '8.5rem',
   },
@@ -20,7 +27,7 @@ const AddNew = memo(() => {
 
   return (
     <Card onClick={handleClick}>
-      <div>
+      <div className={classes.container}>
         <AddIcon className={classes.iconNew} />
         <Typography variant="h4" component="h4">
           Add New

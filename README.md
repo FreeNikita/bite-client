@@ -1,5 +1,6 @@
 ## BITE
 
+[Firebase hosting](https://bite-client.web.app/dashboard)
 
 
 #### .ENV

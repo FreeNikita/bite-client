@@ -1,2 +1,3 @@
-export { default as AddPet } from './AddPet';
-export { default as EditPet } from './EditPet';
+export { default as Pet } from './Pet';
+
+export { PetProvider } from './context';

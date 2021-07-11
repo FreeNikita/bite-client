@@ -6,6 +6,7 @@ export const initialState = {
   email: '',
   emailVerified: false,
   organizationIds: [],
+  currentOrganization: '',
 
   isLoading: false,
 };
@@ -25,9 +26,9 @@ const actions = {
     ...state,
     isLoading: false,
   }),
-  [types.SET_ORGANIZATION]: (state, { organizationIds }) => ({
+  [types.SET_ORGANIZATION]: (state, payload) => ({
     ...state,
-    organizationIds,
+    ...payload,
   }),
   default: (state) => ({ ...state }),
 };

@@ -58,7 +58,7 @@ const Header = memo(({ handleDrawer }) => {
           noWrap
           onClick={() => history.push(HOME_PAGE)}
         >
-          Bite
+          PawHub
         </Typography>
         <Button
           color="inherit"

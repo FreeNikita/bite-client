@@ -23,16 +23,30 @@ export const UserProvider = ({ children }) => {
       const { uid } = user;
 
       const checkUserOrganization = async () => {
-        let res = await firebase.firestore().collection('organizations')
+        const res = await firebase.firestore().collection('organizations')
           .where('employees', 'array-contains', uid).get();
 
         const organizationIds = res.docs.map(({ id }) => id);
+        let org;
         if (organizationIds.length) {
-          dispatch({ type: SET_ORGANIZATION, payload: { organizationIds } });
+          org = {
+            organizationIds,
+            currentOrganization: organizationIds[0],
+          };
         } else {
-          res = await firebase.firestore().collection('organizations').add({ name: user.displayName, employees: [uid] });
-          dispatch({ type: SET_ORGANIZATION, payload: { organizationIds: [res.id] } });
+          const { id } = await firebase.firestore()
+            .collection('organizations')
+            .add({ name: user.displayName, employees: [uid] });
+          org = {
+            organizationIds: [id],
+            currentOrganization: id,
+          };
         }
+
+        dispatch({
+          type: SET_ORGANIZATION,
+          payload: { ...org },
+        });
       };
 
       dispatch({

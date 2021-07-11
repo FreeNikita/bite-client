@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 
 const DashboardPage = lazy(() => import('pages/Dashboard'));
-const HomePage = lazy(() => import('pages/Home'));
+const HomePage = lazy(() => import('pages/Pets'));
 const PetPage = lazy(() => import('pages/Pet'));
 
 export const HOME_PAGE = '/';
